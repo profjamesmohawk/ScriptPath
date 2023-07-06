@@ -42,12 +42,11 @@ prints <em>Hello joe </em>to standard out
 <p class="manTitle">VERSION</p>
 
 <p class="manOpt">
-Version 1, adds:
+Version 1a, adds:
 </p>
 <p class="manOptBody">
-- customize message based on command line parameter <em>(NAME)</em>
+- require command line parameter NAME, if name is not supplied exit with an error
 </p>
-
 <hr>
 <p class="manTitle">Reference Impentation</p>
 
@@ -61,6 +60,7 @@ Version 1, adds:
 #
 # Version 0
 # Version 1: adds command line parameter
+# Version 1a: nake NAME required
 #
 # James Long
 # Summer 2023
@@ -68,10 +68,18 @@ Version 1, adds:
 # give our first parameter a more human friendly name
 NAME=$1
 
+# if $NAME is empty, complain and exit 
+if [ "$NAME" = "" ]
+then
+	echo "NAME is required"
+	exit 1
+fi
+
 echo "Hello $NAME"
 </pre>
                 </span>
 
 </div>
+
 </body>
 </html>

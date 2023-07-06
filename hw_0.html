@@ -7,6 +7,7 @@
   	<title>
 		hello.sh
 	</title>
+	<script src="./showhide.js"></script>
 </head>
 
 <body>
@@ -39,5 +40,31 @@ Displays a welcome message
 prints <em>Hello World</em> to standard out
 </p>
 
+<p class="manTitle">VERSION</p>
+
+<p class="manBody">
+Version 0
+</p>
+<hr>
+<p class="manTitle">Reference Impentation</p>
+
+<div class="manRefIml">
+<a href="javascript:unhide('A1')">Show/Hide</a>
+<span id="A1" class="hidden">
+<pre class="code">
+#!/bin/bash
+#
+# Reference Implementation of hello.sh
+#
+# Version 0
+#
+# James Long
+# Summer 2023
+
+echo "Hello World"
+</pre>
+                </span>
+
+</div>
 </body>
 </html>

@@ -17,7 +17,7 @@ NAME
 </p>
 
 <p class="manBody">
-hello.sh - display a custom welcome message
+hello.sh - display a custom welcome message containing 'have a productive day' Monday through Friday and 'have a nice weekend' on Saturday and Sunday.
 </p>
 
 <p class="manTitle">SYNOPSIS </p>
@@ -37,8 +37,8 @@ Displays a welcome message containing NAME, once fore each NAME argument
 <p class=manOpt>hello.sh alice bob </p>
 <p class="manOptBody">
 prints 
-<br><br><em>Hello alice </em>
- <br><em>Hello bob </em>
+<br><br><em>Hello alice have a productive day</em>
+ <br><em>Hello bob have a productive day</em>
  <br>
 <br>to standard out
 </p>
@@ -51,10 +51,10 @@ prints <em>Name is required</em>, then exits with a return code of 1
 <p class="manTitle">VERSION</p>
 
 <p class="manOpt">
-Version 2, adds:
+Version 3, adds:
 </p>
 <p class="manOptBody">
-- accepts multiple arguments <em>(NAME becomes NAME...)</em>
+- varies message by week-day vs weekend
 </p>
 
 <hr>
@@ -72,6 +72,7 @@ Version 2, adds:
 # Version 1: adds command line parameter
 # Version ra: nake NAME required
 # Version 2: support multiple NAME arguments
+# Version 3: different messages for week-day vs weekend 
 #
 # James Long
 # Summer 2023
@@ -87,11 +88,26 @@ then
 	exit 1
 fi
 
-# print "Hello NAME" for each argument 
+# use command substitution to get the current day of week from the date command
+DAY_OF_WEEK=$(date +%u)
+
+# the date command returns 1 for Monday, meaning any value less than 6
+# is a week-day
+# we will use (( ... )) to tell bash that everything inside the double brackets
+# is math
+#
+if (( DAY_OF_WEEK < 6 ))
+then
+	MESSAGE_SUFFIX="have a productive day"
+else
+	MESSAGE_SUFFIX="have a nice weekend"
+fi
+
+# print custom greeting
 #
 for NAME in $NAMES
 do
-	echo "Hello $NAME"
+	echo "Hello $NAME, $MESSAGE_SUFFIX"
 done
 </pre>
                 </span>
