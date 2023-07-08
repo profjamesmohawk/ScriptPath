@@ -1,0 +1,32 @@
+#!/bin/bash
+#
+# Stub version of the date command to use in testing.
+# It is a front end on the real date command.  The real
+# date command is called with -d to specify the date.
+#
+# The date to use is read from the environment variable DATE_STRING
+# supported formats include:
+#								Saturday
+#								Saturday 09:00
+#
+# example:
+#         export DATE_STRING="Saturday 09:00"
+#
+# James, Summer 2023
+
+############ no changes required after this line #########################
+
+REAL_DATE_COMMAND="/usr/bin/date"
+
+# check that DATE_STRING is set
+#
+if [ "_$DATE_STRING" = "_" ]
+then
+	echo "ERROR: stub version of date, DATE_STRING not set" >&2
+	exit 1
+fi
+
+# warn the world that we are returning fake dates
+#
+echo "WARNING: stub version of date returning $DATE_STRING insted of real time" >&2
+$REAL_DATE_COMMAND -d "$DATE_STRING" $1

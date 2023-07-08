@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  	<link rel="stylesheet" href="./jbl_labs.css"> 
+  	<link rel="stylesheet" href="./jbl_man.css"> 
+  	<title>
+		date
+	</title>
+	<script src="./showhide.js"></script>
+</head>
+
+<body>
+
+<p class="manTitle">
+NAME
+</p>
+
+<p class="manBody">
+date - return a formatted date based on DATE_STRING not the current date.
+</p>
+
+<p class="manTitle">SYNOPSIS </p>
+
+<p class="manBody">
+<strong>date </strong> [+FORMAT]
+</p>
+
+<p class="manTitle">DESCRIPTION </p>
+
+<p class="manBody">
+A wrapper around /usr/bin/date intended for testing of scripts that call date.  FORMAT is passed to /usr/bin/date.
+Internally, the -d option is used to set the date based on the environment variable DATE_STRING.
+</p>
+
+<p class="manTitle">FORMAT </p>
+
+<p class="manBody">
+FORMAT is passed to /usr/bin/date unchanged.
+</p>
+
+<p class="manTitle">ENVIRONMENT</p>
+
+<p class="manBody">
+The environment variable DATE_STRING supports all configuration options supported by the -d option of the date command.
+</p>
+<p class="manOpt">
+Sample DATE_STRING values:
+</p>
+<p class="manOptBody">
+Saturday
+<br>
+Saturday 9:00 am 
+<br>
+Sat 08 Jul 2023 06:48:55 PM
+</p>
+
+<p class="manTitle">EXAMPLES</p>
+
+<p class=manOpt>export DATE_STRING="Saturday"; ./date +%u</p>
+<p class="manOptBody">
+Will return <em>6</em> 
+</p>
+
+
+<hr>
+<p class="manTitle">Reference Impentation</p>
+
+<div class="manRefIml">
+<a href="javascript:unhide('A1')">Show/Hide</a>
+<span id="A1" class="hidden">
+<pre class="code">
+#!/bin/bash
+#
+# Stub version of the date command to use in testing.
+# It is a front end on the real date command.  The real
+# date command is called with -d to specify the date.
+#
+# The date to use is read from the environment variable DATE_STRING
+# supported formats include:
+#								Saturday
+#								Saturday 09:00
+#
+# example:
+#         export DATE_STRING="Saturday 09:00"
+#
+# James, Summer 2023
+
+############ no changes required after this line #########################
+
+REAL_DATE_COMMAND="/usr/bin/date"
+
+# check that DATE_STRING is set
+#
+if [ "_$DATE_STRING" = "_" ]
+then
+	echo "ERROR: stub version of date, DATE_STRING not set" >&2
+	exit 1
+fi
+
+# warn the world that we are returning fake dates
+#
+echo "WARNING: stub version of date returning $DATE_STRING insted of real time" >&2
+$REAL_DATE_COMMAND -d "$DATE_STRING" $1
+</pre>
+</div>
+ 
+</body>
+</html>

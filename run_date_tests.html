@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  	<link rel="stylesheet" href="./jbl_labs.css"> 
+  	<link rel="stylesheet" href="./jbl_man.css"> 
+  	<title>
+		run_date_tests.sh
+	</title>
+	<script src="./showhide.js"></script>
+</head>
+
+<body>
+
+<p class="manTitle">
+run_date_tests.sh
+</p>
+
+<p class="manBody">
+run_date_tests.sh - a script to automate testing of hello.sh version 3.  Specifically, we want to test that the message which varies from day to day is correct for each day of the week.
+</p>
+
+<p class="manTitle">SYNOPSIS </p>
+
+<p class="manBody">
+<strong>test_v3.sh </strong>
+</p>
+
+<p class="manTitle">DESCRIPTION </p>
+
+<p class="manBody">
+Read the test cases from standard in.  Each test case consists of a DATE_STRING and an expected result. 
+DATE_STRING is used to specify the virtual date on which the case is run.  The expected result is a regular expression which is compared to the output of the hello.sh script.  
+</p>
+
+<hr>
+<p class="manTitle">Reference Impentation</p>
+
+<div class="manRefIml">
+<a href="javascript:unhide('A1')">Show/Hide</a>
+<span id="A1" class="hidden">
+<pre class="code">
+#!/bin/bash
+# 
+# script to test hello.sh with different dates
+# reads DATE_STRING EXPECTED_RESULT lines from stadard in
+#
+#
+# James, Summer 2023
+
+# export DATE_STRING so that our children can see it
+export DATE_STRING
+
+# put stub date in path
+PATH=.:$PATH
+
+PASS_COUNT=0
+FAIL_COUNT=0
+
+# run one test for each line read from stdin
+#
+while read DATE_STRING EXPECTED_RESULT
+do
+	REAL_RESULT=$( ./hw_3.sh james 2&gt;/dev/null )
+
+	echo -n "$DATE_STRING = $EXPECTED_RESULT : $REAL_RESULT : "
+	if [[ ${REAL_RESULT} =~ "${EXPECTED_RESULT}" ]]
+	then
+		echo "pass"
+		(( PASS_COUNT++ ))
+	else
+		echo "fail"
+		(( FAIL_COUNT++ ))
+	fi
+done  
+
+echo "Pass: $PASS_COUNT  Fail: $FAIL_COUNT" 
+if (( FAIL_COUNT ))
+then
+	exit 1
+fi
+</pre>
+<br>Sample data file:
+<pre class="code">
+sat nice
+sun nice
+mon productive
+tues productive
+</pre>
+</div>
+ 
+</body>
+</html>
