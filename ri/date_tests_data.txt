@@ -1,4 +1,4 @@
-sat nice
+sat n.[c]e
 sun nice
 mon productive
 tues productive

@@ -22,7 +22,7 @@ do
 	REAL_RESULT=$( ./hw_3.sh james 2>/dev/null )
 
 	echo -n "$DATE_STRING = $EXPECTED_RESULT : $REAL_RESULT : "
-	if [[ ${REAL_RESULT} =~ "${EXPECTED_RESULT}" ]]
+	if [[ ${REAL_RESULT} =~ ${EXPECTED_RESULT} ]]
 	then
 		echo "pass"
 		(( PASS_COUNT++ ))
